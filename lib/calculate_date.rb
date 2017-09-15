@@ -1,4 +1,4 @@
-require 'date'
+require 'active_support/time'
 
 class CalculateDate
   def next(num_occurence, day, num_dates)
