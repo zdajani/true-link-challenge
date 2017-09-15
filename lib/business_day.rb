@@ -21,8 +21,9 @@ class BusinessDay
   end
 
   def return_previous_date_before_weekend(date)
-    public_holiday?(date.beginning_of_week(:friday)) ? date = date.beginning_of_week(:thursday) : date = date.beginning_of_week(:friday)
-    date.prev_day if public_holiday?(date)
+    date = date.beginning_of_week(:friday)
+    date = date.beginning_of_week(:thursday) if public_holiday?(date)
+    date = date.prev_day if public_holiday?(date)
     date
   end
 
