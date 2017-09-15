@@ -4,6 +4,7 @@ RSpec.describe DeliveryDates do
   let(:start_date) { Date.new(2017, 9, 23) }
   let(:recurrance_num) { 1 }
   let(:dates_num) { 4 }
+  let(:day) { 23 }
 
   describe 'next' do
     subject { DeliveryDates.new }
@@ -15,7 +16,7 @@ RSpec.describe DeliveryDates do
         Date.new(start_date.year, start_date.month + 2, 22),
         Date.new(start_date.year, start_date.month + 3, 22)
       ]
-      expect(subject.get(recurrance_num, start_date, dates_num)).to eq(expected_dates)
+      expect(subject.get(recurrance_num, start_date, day, dates_num)).to eq(expected_dates)
     end
   end
 end
