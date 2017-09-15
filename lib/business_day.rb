@@ -1,14 +1,9 @@
 require 'active_support/time'
 
 class BusinessDay
-  def next(date)
-    date = date.next_day if public_holiday?(date)
-    weekend?(date) ? date.next_week(:monday) : date
-  end
-
   def previous(date)
     date = return_previous_day(date) if public_holiday?(date)
-    weekend?(date) ? date.next_week(:monday) : date
+    weekend?(date) ? return_previous_date_before_weekend(date) : date
   end
 
   private
@@ -18,11 +13,17 @@ class BusinessDay
   end
 
   def public_holiday?(date)
-    [date].include?(date)
+    public_holiday_list.include?(date)
   end
 
   def return_previous_day(date)
-    date.monday? ? date.prev_week(:friday) : date.prev_day
+    date.monday? ? date.beginning_of_week(:friday) : date.prev_day
+  end
+
+  def return_previous_date_before_weekend(date)
+    public_holiday?(date.beginning_of_week(:friday)) ? date = date.beginning_of_week(:thursday) : date = date.beginning_of_week(:friday)
+    date.prev_day if public_holiday?(date)
+    date
   end
 
   def public_holiday_list
