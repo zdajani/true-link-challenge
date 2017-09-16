@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope 'api/' do
     resources :events
-    resources :delivery_dates
+    get '/delivery_dates' =>
+      'delivery_dates#all', as: 'delivery_dates'
   end
 end
